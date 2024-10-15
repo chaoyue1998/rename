@@ -25,7 +25,18 @@ nfoFiles.forEach((nfoFile) => {
   otherFiles.forEach((otherFile) => {
     const otherFilePath = path.join(targetDir, otherFile);
     const newFilePath = path.join(newDir, path.basename(otherFile));
-    // 剪切
-    fs.renameSync(otherFilePath, newFilePath);
+    // otherFile 含有poster或者fanart、clearlogo等关键字的文件，剪切到关键字.后缀的路径
+    const keywords = ["poster", "fanart", "clearlogo"];
+    if (keywords.some((keyword) => otherFile.includes(keyword))) {
+      const keyword = keywords.find((keyword) => otherFile.includes(keyword));
+      const newFilePath = path.join(
+        newDir,
+        `${keyword}${path.extname(otherFile)}`
+      );
+      fs.renameSync(otherFilePath, newFilePath);
+    } else {
+      // 剪切
+      fs.renameSync(otherFilePath, newFilePath);
+    }
   });
 });
