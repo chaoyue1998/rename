@@ -26,7 +26,7 @@ nfoFiles.forEach((nfoFile) => {
     const otherFilePath = path.join(targetDir, otherFile);
     const newFilePath = path.join(newDir, path.basename(otherFile));
     // otherFile 含有poster或者fanart、clearlogo等关键字的文件，剪切到关键字.后缀的路径
-    const keywords = ["poster", "fanart", "clearlogo"];
+    const keywords = ["poster", "fanart", "clearlogo", "landscape"];
     if (keywords.some((keyword) => otherFile.includes(keyword))) {
       const keyword = keywords.find((keyword) => otherFile.includes(keyword));
       const newFilePath = path.join(
