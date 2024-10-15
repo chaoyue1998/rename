@@ -18,10 +18,13 @@ nfoFiles.forEach((nfoFile) => {
   console.log(`mkdir ${newDir}`);
 
   // 匹配文件名以nfoFileName开头的任意文件，不递归文件夹
-  const otherFiles = glob.sync(`${nfoFileName}*`, {
-    cwd: targetDir,
-    nodir: true,
-  });
+  const otherFiles = glob.sync(
+    `${nfoFileName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}*`,
+    {
+      cwd: targetDir,
+      nodir: true,
+    }
+  );
   otherFiles.forEach((otherFile) => {
     const otherFilePath = path.join(targetDir, otherFile);
     const newFilePath = path.join(newDir, path.basename(otherFile));
